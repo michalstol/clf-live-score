@@ -1,7 +1,7 @@
 /**
  * Prefix gives custom name for all storage elements
  */
-const prefix = 'custom-prefix-';
+const prefix = 'clf-score-';
 
 const storageAPI = {
     /**
