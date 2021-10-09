@@ -12,10 +12,11 @@ export default function Connection(): JSX.Element {
     const { connected, logged } = useAuth();
     const history = useHistory();
     const location = useLocation<LocationState>();
-    const defaultFrom = { pathname: logged ? '/logged' : '/sign-in' };
+
+    const defaultFrom = { pathname: 'feed' };
     const { from } = location.state || { from: { pathname: null } };
     const redirectPath =
-        !from.pathname || (from.pathname === '/sign-in' && logged)
+        !from.pathname || (from.pathname === '/feed' && logged)
             ? defaultFrom
             : from || defaultFrom;
 

@@ -24,7 +24,11 @@ function App() {
                         {/* </View> */}
                     </Route>
 
-                    <ConnectedRoute path="/sign-in">
+                    <ConnectedRoute path="/feed">
+                        <View></View>
+                    </ConnectedRoute>
+
+                    {/* <ConnectedRoute path="/sign-in">
                         <View>
                             <SignIn />
                         </View>
@@ -34,7 +38,7 @@ function App() {
                         <View>
                             <Logged />
                         </View>
-                    </PrivateRoute>
+                    </PrivateRoute> */}
                 </SwitchGroup>
             </Router>
         </div>
