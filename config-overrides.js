@@ -19,3 +19,11 @@ and uncomment lines below:
 
 It's important to override webpack config
 */
+
+const { addWebpackAlias, override } = require('customize-cra');
+
+module.exports = override(
+    addWebpackAlias({
+        '@mui/styled-engine': '@mui/styled-engine-sc',
+    })
+);
