@@ -7,9 +7,12 @@ import './styles/index.scss';
 
 import { store } from './app/store';
 import App from './App';
+import { CssBaseline } from '@mui/material';
 
 ReactDOM.render(
     <React.StrictMode>
+        <CssBaseline />
+
         <Provider store={store}>
             <App />
         </Provider>
