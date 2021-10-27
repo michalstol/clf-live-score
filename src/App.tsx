@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Connection from './views/Connection/Connection';
 import SignIn from './views/SignIn/SignIn';
 import Logged from './views/Logged/Logged';
+import Feed from './views/Feed/Feed';
 
 import AuthWatcher from './components/AuthWatcher/AuthWatcher';
 import ConnectedRoute from './components/ConnectedRoute/ConnectedRoute';
@@ -25,7 +26,9 @@ function App() {
                     </Route>
 
                     <ConnectedRoute path="/feed">
-                        <View></View>
+                        <View>
+                            <Feed />
+                        </View>
                     </ConnectedRoute>
 
                     {/* <ConnectedRoute path="/sign-in">
