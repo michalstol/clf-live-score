@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { List, ListItem, Paper, Typography } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -35,9 +35,17 @@ export default function Feed(): JSX.Element {
 
             <List>
                 {data?.map(game => (
-                    <ListItem key={game.id} button>
-                        {game.host} ({game.hostScore} : {game.guestScore}){' '}
-                        {game.guest}
+                    <ListItem key={game.id} component={GameRecord} button>
+                        <TeamGroup>
+                            <TeamName>{game.host}</TeamName>
+                            <TeamName>{game.guest}</TeamName>
+                        </TeamGroup>
+
+                        <Score>
+                            {game.hostScore}:{game.guestScore}
+                        </Score>
+
+                        <Live>LIVE</Live>
                     </ListItem>
                 ))}
             </List>
@@ -47,4 +55,44 @@ export default function Feed(): JSX.Element {
 
 const Header = styled.div`
     padding: 10px 10px 0;
+`;
+
+const GameRecord = styled.li`
+    display: flex;
+    align-items: center;
+`;
+
+const TeamGroup = styled.div`
+    font-size: 0.9em;
+    flex: 1 1 auto;
+`;
+
+const TeamName = styled.div``;
+
+const Score = styled.div`
+    flex: 0 0 auto;
+`;
+
+interface LiveProps {
+    isLive?: boolean;
+}
+
+const Live = styled.div`
+    padding: 3px 4px;
+    font-size: 0.7em;
+    line-height: 1;
+    border: 1px solid currentColor;
+    flex: 0 0 auto;
+
+    ${(props: LiveProps) =>
+        props.isLive
+            ? css`
+                  color: #fff;
+                  background-color: #f00;
+                  border-color: #f00;
+              `
+            : css`
+                  opacity: 0.5;
+                  pointer-events: none;
+              `}
 `;
