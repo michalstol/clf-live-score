@@ -46,7 +46,7 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         changeUser: (state, { payload: user }: PayloadAction<UserType>) => {
-            storageAPI.set<UserState>('auth', {
+            storageAPI.set('auth', {
                 user,
             });
 
