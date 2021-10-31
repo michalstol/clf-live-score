@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Connection from './views/Connection/Connection';
 import SignIn from './views/SignIn/SignIn';
-import Logged from './views/Logged/Logged';
 import Feed from './views/Feed/Feed';
 import Live from './views/Live/Live';
+import Commentary from './views/Commentary/Commentary';
 
 import AuthWatcher from './components/AuthWatcher/AuthWatcher';
 import ConnectedRoute from './components/ConnectedRoute/ConnectedRoute';
@@ -38,17 +38,17 @@ function App() {
                         </View>
                     </ConnectedRoute>
 
-                    {/* <ConnectedRoute path="/sign-in">
+                    <ConnectedRoute path="/sign-in">
                         <View>
                             <SignIn />
                         </View>
                     </ConnectedRoute>
 
-                    <PrivateRoute path="/logged">
+                    <PrivateRoute path="/commentary/:id">
                         <View>
-                            <Logged />
+                            <Commentary />
                         </View>
-                    </PrivateRoute> */}
+                    </PrivateRoute>
                 </SwitchGroup>
             </Router>
         </div>

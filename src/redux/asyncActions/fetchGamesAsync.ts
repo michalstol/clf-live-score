@@ -14,13 +14,13 @@ import transformFirebaseDate from '../../helpers/transformFirebaseDate';
 
 import Game, { GameStatus } from '../../types/game';
 
+type GameFilter = GameStatus | 'all';
+
 const fetchGamesAsync = createAsyncThunk(
     'feed/fetch',
-    async (filter?: GameStatus) => {
+    async (filter?: ['!=' | '==', GameFilter]) => {
         const data: Game[] = [];
-        const filterBy: ['!=' | '==', GameStatus] = !!filter
-            ? ['==', filter]
-            : ['!=', 'preparing'];
+        const filterBy = filter || ['!=', 'preparing'];
         const snapshot = await getDocs(
             query(
                 collection(db, `games`),

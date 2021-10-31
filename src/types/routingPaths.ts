@@ -2,4 +2,4 @@
 export type connectedPaths = '/sign-in' | '/feed' | '/live/:id';
 
 // paths for PrivateRoute component
-export type privatePaths = '/logged';
+export type privatePaths = '/commentary/:id';

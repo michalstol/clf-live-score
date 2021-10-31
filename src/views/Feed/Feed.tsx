@@ -2,33 +2,26 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { AppDispatch } from '../../app/store';
 
 import fetchGamesAsync from '../../redux/asyncActions/fetchGamesAsync';
+import { selectAuth } from '../../redux/slices/authorizedSlice';
 import { selectFeed } from '../../redux/slices/feedSlice';
 
 export const testId = 'view--feed';
 
-let singletonInstance = false;
-
-function fetchGames(dispatch: AppDispatch) {
-    if (singletonInstance) return;
-
-    dispatch(fetchGamesAsync());
-    singletonInstance = true;
-}
-
 export default function Feed(): JSX.Element {
     const dispatch = useAppDispatch();
+    const { logged } = useAppSelector(selectAuth);
     const { data } = useAppSelector(selectFeed);
 
     useEffect(() => {
-        fetchGames(dispatch);
-    }, [dispatch]);
+        dispatch(fetchGamesAsync(logged ? ['!=', 'all'] : undefined));
+    }, [dispatch, logged]);
 
     return (
         <div>
             <h5>Feed</h5>
+            <Link to="/sign-in">Sign in</Link>
 
             <ul>
                 {data?.map(game => (
@@ -51,6 +44,14 @@ export default function Feed(): JSX.Element {
                         >
                             LIVE
                         </Link>
+                        {logged && (
+                            <>
+                                {' '}
+                                <Link to={`commentary/${game.id}`}>
+                                    COMMENTARY
+                                </Link>
+                            </>
+                        )}
                     </li>
                 ))}
             </ul>

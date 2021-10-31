@@ -1,21 +1,47 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { collection, query, onSnapshot } from 'firebase/firestore';
+import { collection, doc, query, onSnapshot } from 'firebase/firestore';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { db } from '../../app/firebase';
 
 import { updateLive, selectLive } from '../../redux/slices/liveSlice';
+import { selectFeed } from '../../redux/slices/feedSlice';
+
+import transformFirebaseDate from '../../helpers/transformFirebaseDate';
 
 import GameTeam, { GameTeamsType } from '../../types/gameTeam';
 import GenericObject from '../../types/genericObject';
+import Game from '../../types/game';
 
-export const testId = 'view--live';
+export const testId = 'view--commentary';
 
-export default function Live(): JSX.Element {
+export default function Commentary(): JSX.Element {
     const { id } = useParams<{ id: string }>();
     const dispatch = useAppDispatch();
     const data = useAppSelector(selectLive)[id];
+    const gameData = useAppSelector(selectFeed).data?.find(
+        record => record.id === id
+    );
+    const [game, setGame] = useState(gameData);
+
+    useEffect(() => {
+        const unsubscribe = onSnapshot(doc(db, 'games', id), snapshot => {
+            if (!snapshot.exists()) return;
+
+            const snapData = snapshot.data() as Game;
+            const transform = transformFirebaseDate(snapData);
+
+            setGame({
+                ...snapData,
+                ...transform('createdAt'),
+                ...transform('startedAt'),
+                id,
+            });
+        });
+
+        return unsubscribe;
+    }, [dispatch, id]);
 
     // Connect with Firestore and update the live state
     useEffect(() => {
@@ -53,7 +79,8 @@ export default function Live(): JSX.Element {
 
     return (
         <div>
-            <h5>Live - id:{id}</h5>
+            <h5>Commentary - id:{id}</h5>
+            <pre>{JSON.stringify(!!game ? game : {}, null, 4)}</pre>
             <pre>{JSON.stringify(!!data ? data : {}, null, 4)}</pre>
         </div>
     );

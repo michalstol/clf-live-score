@@ -1,8 +1,8 @@
 import GamePlayer from './gamePlayer';
 
 export default interface GameTeam {
-    variant: 'host' | 'guest';
     players: GamePlayer[];
+    variant: 'host' | 'guest';
 }
 
 interface GameTeams {
