@@ -21,7 +21,8 @@ export default function Feed(): JSX.Element {
     return (
         <div>
             <h5>Feed</h5>
-            <Link to="/sign-in">Sign in</Link>
+            {!logged && <Link to="/sign-in">Sign in</Link>}
+            {!!logged && <Link to="/create-game">Create game</Link>}
 
             <ul>
                 {data?.map(game => (

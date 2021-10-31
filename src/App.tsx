@@ -6,6 +6,7 @@ import SignIn from './views/SignIn/SignIn';
 import Feed from './views/Feed/Feed';
 import Live from './views/Live/Live';
 import Commentary from './views/Commentary/Commentary';
+import CreateGame from './views/CreateGame/CreateGame';
 
 import AuthWatcher from './components/AuthWatcher/AuthWatcher';
 import ConnectedRoute from './components/ConnectedRoute/ConnectedRoute';
@@ -43,6 +44,12 @@ function App() {
                             <SignIn />
                         </View>
                     </ConnectedRoute>
+
+                    <PrivateRoute path="/create-game">
+                        <View>
+                            <CreateGame />
+                        </View>
+                    </PrivateRoute>
 
                     <PrivateRoute path="/commentary/:id">
                         <View>
